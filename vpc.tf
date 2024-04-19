@@ -11,7 +11,7 @@ locals {
 module "vpc" {
   count = var.create_vpc ? 1 : 0
 
-  source = "terraform-aws-modules/vpc/aws" # https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
+  source  = "terraform-aws-modules/vpc/aws" # https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
   version = "5.7.1"
 
   name = var.vpc_name
@@ -61,12 +61,12 @@ module "vpc" {
   # ------------------------------------------------------------------------------------
 
   # VPC flow logs
-  enable_flow_log                      = var.env == "prod" || var.create_vpc_flow_logs ? true : false
-  create_flow_log_cloudwatch_log_group = true
-  create_flow_log_cloudwatch_iam_role  = true
-  flow_log_max_aggregation_interval    = var.vpc_flow_logs_aggregation_interval
+  enable_flow_log                                 = var.env == "prod" || var.create_vpc_flow_logs ? true : false
+  create_flow_log_cloudwatch_log_group            = true
+  create_flow_log_cloudwatch_iam_role             = true
+  flow_log_max_aggregation_interval               = var.vpc_flow_logs_aggregation_interval
   flow_log_cloudwatch_log_group_retention_in_days = var.vpc_flow_logs_retention_days
-  flow_log_cloudwatch_log_group_name_suffix = "${var.env}"
+  flow_log_cloudwatch_log_group_name_suffix       = var.env
 
   # ------------------------------------------------------------------------------------
 
@@ -74,25 +74,25 @@ module "vpc" {
   vpc_tags = { Name = var.vpc_name }
 
   # Tagging - VPC flow logs
-  vpc_flow_log_tags = { Name = "${var.vpc_name}-vpc-flow-logs"}
+  vpc_flow_log_tags = { Name = "${var.vpc_name}-vpc-flow-logs" }
 
   # Tagging - NAT
-  nat_gateway_tags = { Name = "${var.env}-nat-${element(local.azs, count.index)}"}
-  
+  nat_gateway_tags = { Name = "${var.env}-nat-${element(local.azs, count.index)}" }
+
   # Tagging - NAT EIP
   nat_eip_tags = { Name = "${var.env}-eip-nat-${element(local.azs, count.index)}" }
-  
+
   # Tagging - IGW
-  igw_tags = { Name = "${var.env}-igw"}
+  igw_tags = { Name = "${var.env}-igw" }
 
   # Tagging - Route tables
-  private_route_table_tags = { Name = "${var.env}-rt-private" }
-  public_route_table_tags = { Name = "${var.env}-rt-public" }
+  private_route_table_tags  = { Name = "${var.env}-rt-private" }
+  public_route_table_tags   = { Name = "${var.env}-rt-public" }
   database_route_table_tags = { Name = "${var.env}-rt-database" }
 
   # Generic tags applied to all resources
   tags = {
     "peinser-lz:tf-managed" = "true"
-    "peinser-lz:env"     = var.env
+    "peinser-lz:env"        = var.env
   }
 }
