@@ -2,8 +2,8 @@ name: Run Terraform commands
 
 on:
   push:
-    branches:
-    - main
+    paths:
+      - "**.tf"
 
 jobs:
   checkout:

@@ -2,8 +2,8 @@ name: Generate Terraform documentation
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - "**.tf"
 
 jobs:
   docs:
