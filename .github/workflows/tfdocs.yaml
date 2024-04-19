@@ -1,0 +1,21 @@
+name: Generate terraform docs
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: main
+
+    - name: Render terraform docs and append to end of README.md
+      uses: terraform-docs/gh-actions@v1.1.0
+      with:
+        working-dir: .
+        output-file: README.md
+        output-method: inject
