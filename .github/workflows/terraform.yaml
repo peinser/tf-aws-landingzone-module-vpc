@@ -6,27 +6,36 @@ on:
     - main
 
 jobs:
-  docs:
+  checkout:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with:
         ref: main
 
+  terraform-fmt:
+    runs-on: ubuntu-latest
+    steps:
     - name: Run terraform fmt
       uses: dflook/terraform-fmt@v1
       with:
         path: .
 
+  terraform-validate:
+    runs-on: ubuntu-latest
+    steps:
     - name: Run terraform validate
       uses: dflook/terraform-validate@v1
       with:
         path: .
-      
+
+  tfdocs:
+    runs-on: ubuntu-latest
+    steps:
     - name: Render Terraform docs
       uses: terraform-docs/gh-actions@v1.1.0
       with:
         working-dir: .
         output-file: README.md
         output-method: inject
-        #git-push: "true"
+        git-push: "true"
