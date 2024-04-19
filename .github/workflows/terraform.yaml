@@ -1,4 +1,4 @@
-name: Generate terraform docs
+name: Run Terraform commands
 
 on:
   push:
@@ -13,10 +13,20 @@ jobs:
       with:
         ref: main
 
-    - name: Render terraform docs and append to end of README.md
+    - name: Run terraform fmt
+      uses: dflook/terraform-fmt@v1
+      with:
+        path: .
+
+    - name: Run terraform validate
+      uses: dflook/terraform-validate@v1
+      with:
+        path: .
+      
+    - name: Render Terraform docs
       uses: terraform-docs/gh-actions@v1.1.0
       with:
         working-dir: .
         output-file: README.md
         output-method: inject
-        git-push: "true"
+        #git-push: "true"
