@@ -1,0 +1,23 @@
+name: Generate Terraform documentation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: main
+
+    - name: Render Terraform docs
+      uses: terraform-docs/gh-actions@v1.1.0
+      with:
+        working-dir: .
+        output-file: README.md
+        output-method: inject
+        git-push: "true"
