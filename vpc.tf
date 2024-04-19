@@ -28,13 +28,9 @@ module "vpc" {
   # ------------------------------------------------------------------------------------
 
   # Subnet CIDRs
-  #private_subnets  = length(var.private_subnet_cidr_blocks) == 0 ? [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 1)] : var.private_subnet_cidr_blocks
-  #public_subnets   = length(var.public_subnet_cidr_blocks) == 0 ? [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 100)] : var.public_subnet_cidr_blocks
-  #database_subnets = var.create_database_subnets ? [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 10)] : []
-  #database_subnets = var.create_database_subnets && var.database_subnet_cidr_blocks != [] ? var.database_subnet_cidr_blocks : var.create_database_subnets ? [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 10)] : []
-
-  private_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 1)]
-  public_subnets   = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 100)]
+  private_subnets  = length(var.private_subnet_cidr_blocks) == 0 ? [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 1)] : var.private_subnet_cidr_blocks
+  public_subnets   = length(var.public_subnet_cidr_blocks) == 0 ? [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 100)] : var.public_subnet_cidr_blocks
+  database_subnets = var.create_database_subnets && length(var.database_subnet_cidr_blocks) == 0 ? [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 10)] : var.create_database_subnets && length(var.database_subnet_cidr_blocks) > 0 ? var.database_subnet_cidr_blocks : []
 
   # Subnet naming
   private_subnet_names = [
