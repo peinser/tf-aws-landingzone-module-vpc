@@ -44,6 +44,7 @@
 | <a name="input_public_subnet_name_prefix"></a> [public\_subnet\_name\_prefix](#input\_public\_subnet\_name\_prefix) | Prefix to add to private subnet names | `string` | `"public"` | no |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"eu-west-1"` | no |
 | <a name="input_single_nat_gateway"></a> [single\_nat\_gateway](#input\_single\_nat\_gateway) | Whether to create only a single NAT GW in the VPC | `bool` | `false` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to add to all created resources | `map(string)` | <pre>{<br>  "peinser-lz:tf-managed": "true"<br>}</pre> | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | CIDR block of the main VPC | `string` | `"10.0.0.0/16"` | no |
 | <a name="input_vpc_flow_logs_aggregation_interval"></a> [vpc\_flow\_logs\_aggregation\_interval](#input\_vpc\_flow\_logs\_aggregation\_interval) | The maximum interval of time (in seconds) during which a flow of packets is captured and aggregated into a flow log record | `number` | `600` | no |
 | <a name="input_vpc_flow_logs_retention_days"></a> [vpc\_flow\_logs\_retention\_days](#input\_vpc\_flow\_logs\_retention\_days) | Retention (in days) that VPC flow logs are kept | `number` | `30` | no |
