@@ -184,6 +184,5 @@ variable "tags" {
   description = "Tags to add to all created resources"
   default = {
     "peinser-lz:tf-managed" = "true"
-    "peinser-lz:env"        = var.env
   }
 }

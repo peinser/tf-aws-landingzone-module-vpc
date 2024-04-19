@@ -91,5 +91,8 @@ module "vpc" {
   database_route_table_tags = { Name = "${var.env}-rt-database" }
 
   # Generic tags applied to all resources
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    { "peinser:lz-env" = var.env }
+  )
 }
